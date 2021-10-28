@@ -5,11 +5,13 @@ import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Path
 import android.util.AttributeSet
+import android.widget.LinearLayout
+import android.widget.ListView
 import androidx.recyclerview.widget.RecyclerView
 
 class CustomRecyclerView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
-) : RecyclerView(context, attrs, defStyleAttr) {
+) : LinearLayout(context, attrs, defStyleAttr) {
     override fun dispatchDraw(canvas: Canvas) {
         super.dispatchDraw(canvas)
         val path = Path()
