@@ -3,11 +3,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation"
-    app:startDestination="@id/alarmsFragment">
+    app:startDestination="@id/addAlarmFragment">
 
     <fragment
         android:id="@+id/alarmsFragment"
         android:name="com.abumuhab.smartalarm.fragments.AlarmsFragment"
         android:label="fragment_alarms"
-        tools:layout="@layout/fragment_alarms" />
+        tools:layout="@layout/fragment_alarms" >
+        <action
+            android:id="@+id/action_alarmsFragment_to_addAlarmFragment"
+            app:destination="@id/addAlarmFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addAlarmFragment"
+        android:name="com.abumuhab.smartalarm.fragments.AddAlarmFragment"
+        tools:layout="@layout/fragment_add_alarm"
+        android:label="AddAlarmFragment" />
 </navigation>
