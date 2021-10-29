@@ -10,7 +10,7 @@ import android.widget.ListView
 import androidx.core.content.withStyledAttributes
 import androidx.recyclerview.widget.RecyclerView
 
-class CustomRecyclerView @JvmOverloads constructor(
+class FolderCutLinearLayout @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : LinearLayout(context, attrs, defStyleAttr) {
     private var cutPercent = 0.0f
@@ -19,12 +19,12 @@ class CustomRecyclerView @JvmOverloads constructor(
     private var invertCutTopRightCorner = false
 
     init {
-        context.withStyledAttributes(attrs, R.styleable.CustomRecyclerView) {
-            cutPercent = getFloat(R.styleable.CustomRecyclerView_cutPercent, 0.6f)
-            cutOutColor = getColor(R.styleable.CustomRecyclerView_cutOutColor, 0)
-            cutHeight = getFloat(R.styleable.CustomRecyclerView_cutHeight, 80f)
+        context.withStyledAttributes(attrs, R.styleable.FolderCutLinearLayout) {
+            cutPercent = getFloat(R.styleable.FolderCutLinearLayout_cutPercent, 0.6f)
+            cutOutColor = getColor(R.styleable.FolderCutLinearLayout_cutOutColor, 0)
+            cutHeight = getFloat(R.styleable.FolderCutLinearLayout_cutHeight, 80f)
             invertCutTopRightCorner =
-                getBoolean(R.styleable.CustomRecyclerView_invertCutTopRightCorner, false)
+                getBoolean(R.styleable.FolderCutLinearLayout_invertCutTopRightCorner, false)
         }
     }
 

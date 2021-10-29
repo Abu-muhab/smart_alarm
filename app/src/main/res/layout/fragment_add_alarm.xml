@@ -31,7 +31,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:tint="@color/primaryColorDark" />
 
-        <com.abumuhab.smartalarm.CustomRecyclerView
+        <com.abumuhab.smartalarm.FolderCutLinearLayout
             android:layout_width="match_parent"
             android:layout_height="300dp"
             android:layout_marginTop="64dp"

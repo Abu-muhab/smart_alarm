@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <declare-styleable name="CustomRecyclerView">
+    <declare-styleable name="FolderCutLinearLayout">
         <attr name="cutPercent" format="float"/>
         <attr name="cutOutColor" format="color"/>
         <attr name="invertCutTopRightCorner" format="boolean"/>

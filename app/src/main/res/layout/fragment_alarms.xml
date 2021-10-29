@@ -32,7 +32,7 @@
             app:layout_constraintTop_toTopOf="@+id/textView2"
             app:tint="@color/primaryColorDark" />
 
-        <com.abumuhab.smartalarm.CustomRecyclerView
+        <com.abumuhab.smartalarm.FolderCutLinearLayout
             android:id="@+id/alarmHeader"
             android:layout_width="match_parent"
             android:layout_height="90dp"
@@ -53,7 +53,7 @@
                 android:textColor="@color/primaryColorDark"
                 android:textSize="20sp"
                 android:textStyle="bold" />
-        </com.abumuhab.smartalarm.CustomRecyclerView>
+        </com.abumuhab.smartalarm.FolderCutLinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/alarmsRecyclerView"
