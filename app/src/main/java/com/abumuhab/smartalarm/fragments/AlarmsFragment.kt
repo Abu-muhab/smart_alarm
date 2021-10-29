@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.findNavController
 import com.abumuhab.smartalarm.R
 import com.abumuhab.smartalarm.adapters.AlarmAdapter
 import com.abumuhab.smartalarm.databinding.FragmentAlarmsBinding
@@ -43,6 +44,11 @@ class AlarmsFragment : Fragment() {
                 Alarm("temp", "10"),
             )
         )
+
+        binding.addAlarmButton.setOnClickListener {
+            it.findNavController()
+                .navigate(AlarmsFragmentDirections.actionAlarmsFragmentToAddAlarmFragment())
+        }
 
         return binding.root
     }

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation"
-    app:startDestination="@id/addAlarmFragment">
+    app:startDestination="@id/alarmsFragment">
 
     <fragment
         android:id="@+id/alarmsFragment"
@@ -18,5 +18,11 @@
         android:id="@+id/addAlarmFragment"
         android:name="com.abumuhab.smartalarm.fragments.AddAlarmFragment"
         tools:layout="@layout/fragment_add_alarm"
-        android:label="AddAlarmFragment" />
+        android:label="AddAlarmFragment" >
+        <action
+            android:id="@+id/action_addAlarmFragment_to_alarmsFragment"
+            app:destination="@id/alarmsFragment"
+            app:popUpTo="@id/alarmsFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
 </navigation>
