@@ -37,7 +37,11 @@ class AddAlarmFragment : Fragment() {
                 WeekdayCardBinding.inflate(layoutInflater, binding.weekdaysHolder, false)
             weekdayBinding.selected = false
             weekdayBinding.weekDay = it
-            val layoutParams = LinearLayout.LayoutParams(0, 130, 1f)
+            val layoutParams = LinearLayout.LayoutParams(
+                0,
+                (80 * requireContext().resources.displayMetrics.density).toInt(),
+                1f
+            )
             if (it != "Sun") {
                 layoutParams.marginEnd = 10
             }
