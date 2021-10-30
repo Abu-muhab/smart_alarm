@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.children
+import androidx.core.view.get
 import androidx.navigation.findNavController
 import com.abumuhab.smartalarm.databinding.FragmentAddAlarmBinding
 import com.abumuhab.smartalarm.databinding.WeekdayCardBinding
@@ -29,6 +31,22 @@ class AddAlarmFragment : Fragment() {
             it.findNavController()
                 .navigate(AddAlarmFragmentDirections.actionAddAlarmFragmentToAlarmsFragment())
         }
+
+        binding.hourPicker.minValue = 1
+        binding.hourPicker.maxValue = 12
+        binding.hourPicker.value = 12
+        val hourRage = 1..12
+        binding.hourPicker.displayedValues = (hourRage.map {
+            it.toString().padStart(2, '0')
+        }).toTypedArray()
+
+        binding.minutePicker.minValue = 0
+        binding.minutePicker.maxValue = 59
+        binding.hourPicker.value = 0
+        val minRange = 0..59
+        binding.minutePicker.displayedValues = (minRange.map {
+            it.toString().padStart(2, '0')
+        }).toTypedArray()
 
 
         val days = arrayListOf("Mon", "Tues", "Wed", "Thurs", "Fri", "Sat", "Sun")
