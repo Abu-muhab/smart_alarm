@@ -3,6 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.abumuhab.smartalarm.viewmodels.AddAlarmViewModel" />
+    </data>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -128,11 +135,15 @@
                     <TextView
                         android:id="@+id/textView100"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="50dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:gravity="center_vertical"
+                        android:onClick="@{()->viewModel.setAM(true)}"
                         android:padding="10dp"
                         android:text="AM"
-                        android:textColor="@color/primaryColorDark"
-                        android:textSize="16sp"
+                        android:textColor="@{viewModel.isAM?@color/primaryColorLight:@color/primaryColorDark}"
+                        android:textSize="@{viewModel.isAM?@dimen/sp_25:@dimen/sp_16}"
                         android:textStyle="bold"
                         app:layout_constraintEnd_toStartOf="@+id/textView1001"
                         app:layout_constraintHorizontal_bias="0.5"
@@ -143,17 +154,23 @@
                     <TextView
                         android:id="@+id/textView1001"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="50dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:gravity="center_vertical"
+                        android:onClick="@{()->viewModel.setAM(false)}"
                         android:padding="10dp"
                         android:text="PM"
-                        android:textColor="@color/primaryColorDark"
-                        android:textSize="16sp"
+                        android:textColor="@{viewModel.isAM?@color/primaryColorDark:@color/primaryColorLight}"
+                        android:textSize="@{viewModel.isAM?@dimen/sp_16:@dimen/sp_25}"
                         android:textStyle="bold"
                         app:layout_constraintBottom_toBottomOf="@+id/textView100"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toEndOf="@+id/textView100"
-                        app:layout_constraintTop_toTopOf="@+id/textView100" />
+                        app:layout_constraintTop_toTopOf="@+id/textView100"
+                        tools:textColor="@color/primaryColorLight"
+                        tools:textSize="@dimen/sp_25" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </com.abumuhab.smartalarm.FolderCutLinearLayout>
 

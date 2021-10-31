@@ -9,19 +9,29 @@ import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.children
 import androidx.core.view.get
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
+import com.abumuhab.smartalarm.R
 import com.abumuhab.smartalarm.databinding.FragmentAddAlarmBinding
 import com.abumuhab.smartalarm.databinding.WeekdayCardBinding
 import com.abumuhab.smartalarm.util.hideSoftKeyboard
+import com.abumuhab.smartalarm.viewmodels.AddAlarmViewModel
 
 class AddAlarmFragment : Fragment() {
-
+    private lateinit var viewModel: AddAlarmViewModel
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         (activity as AppCompatActivity).supportActionBar?.hide()
-        val binding = FragmentAddAlarmBinding.inflate(inflater, container, false)
+        val binding: FragmentAddAlarmBinding = DataBindingUtil.inflate(
+            inflater,
+            R.layout.fragment_add_alarm, container, false
+        )
+
+        viewModel = ViewModelProvider(this).get(AddAlarmViewModel::class.java)
+        binding.viewModel = viewModel
 
         binding.addAlarmContainer.setOnClickListener {
             hideSoftKeyboard(requireContext(), it)
