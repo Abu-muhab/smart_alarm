@@ -273,7 +273,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView10" />
 
             <com.google.android.material.slider.Slider
-                android:id="@+id/slider"
+                android:id="@+id/volumeSlider"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -288,14 +288,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="Alarm Volume"
+                android:text="Alarm with vibration"
                 android:textColor="@color/primaryColorDark"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="@+id/slider"
-                app:layout_constraintTop_toBottomOf="@+id/slider" />
+                app:layout_constraintStart_toStartOf="@+id/volumeSlider"
+                app:layout_constraintTop_toBottomOf="@+id/volumeSlider" />
 
             <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/vibrationSwitch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:theme="@style/Theme.SmartAlarm"

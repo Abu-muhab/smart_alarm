@@ -44,7 +44,7 @@ class AddAlarmFragment : Fragment() {
 
         binding.hourPicker.minValue = 1
         binding.hourPicker.maxValue = 12
-        binding.hourPicker.value = 12
+        binding.hourPicker.value = viewModel.hour.toInt()
         val hourRage = 1..12
         binding.hourPicker.displayedValues = (hourRage.map {
             it.toString().padStart(2, '0')
@@ -52,7 +52,7 @@ class AddAlarmFragment : Fragment() {
 
         binding.minutePicker.minValue = 0
         binding.minutePicker.maxValue = 59
-        binding.hourPicker.value = 0
+        binding.minutePicker.value = viewModel.minute.toInt()
         val minRange = 0..59
         binding.minutePicker.displayedValues = (minRange.map {
             it.toString().padStart(2, '0')
@@ -61,6 +61,7 @@ class AddAlarmFragment : Fragment() {
 
         val days = arrayListOf("Mon", "Tues", "Wed", "Thurs", "Fri", "Sat", "Sun")
         days.forEach {
+            var day = it
             val weekdayBinding =
                 WeekdayCardBinding.inflate(layoutInflater, binding.weekdaysHolder, false)
             weekdayBinding.selected = false
@@ -76,6 +77,11 @@ class AddAlarmFragment : Fragment() {
 
             weekdayBinding.button.setOnClickListener {
                 weekdayBinding.selected = !weekdayBinding.selected!!
+                if (weekdayBinding.selected == true) {
+                    viewModel.addToSelectedDays(day)
+                } else {
+                    viewModel.removeFromSelectedDays(day)
+                }
             }
 
             weekdayBinding.root.layoutParams = layoutParams
