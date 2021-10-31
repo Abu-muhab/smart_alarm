@@ -1,11 +1,15 @@
 package com.abumuhab.smartalarm.fragments
 
+import android.app.Application
+import android.media.MediaPlayer
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import android.widget.PopupMenu
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.children
 import androidx.core.view.get
@@ -15,8 +19,10 @@ import androidx.navigation.findNavController
 import com.abumuhab.smartalarm.R
 import com.abumuhab.smartalarm.databinding.FragmentAddAlarmBinding
 import com.abumuhab.smartalarm.databinding.WeekdayCardBinding
+import com.abumuhab.smartalarm.models.AlarmSound
 import com.abumuhab.smartalarm.util.hideSoftKeyboard
 import com.abumuhab.smartalarm.viewmodels.AddAlarmViewModel
+import com.abumuhab.smartalarm.viewmodels.AddAlarmViewModelFactory
 
 class AddAlarmFragment : Fragment() {
     private lateinit var viewModel: AddAlarmViewModel
@@ -30,7 +36,9 @@ class AddAlarmFragment : Fragment() {
             R.layout.fragment_add_alarm, container, false
         )
 
-        viewModel = ViewModelProvider(this).get(AddAlarmViewModel::class.java)
+        val application: Application = requireNotNull(this.activity).application
+        val viewModelFactory = AddAlarmViewModelFactory(application)
+        viewModel = ViewModelProvider(this, viewModelFactory).get(AddAlarmViewModel::class.java)
         binding.viewModel = viewModel
 
         binding.addAlarmContainer.setOnClickListener {
@@ -40,6 +48,16 @@ class AddAlarmFragment : Fragment() {
         binding.cancelButton.setOnClickListener {
             it.findNavController()
                 .navigate(AddAlarmFragmentDirections.actionAddAlarmFragmentToAlarmsFragment())
+        }
+
+        binding.selectAlarmButton.setOnClickListener {
+            val popupMenu = PopupMenu(requireContext(), it)
+            popupMenu.menuInflater.inflate(R.menu.alarm_types_menu, popupMenu.menu)
+            popupMenu.setOnMenuItemClickListener {
+                viewModel.setAlarmSound(it.title.toString())
+                true
+            }
+            popupMenu.show()
         }
 
         binding.hourPicker.minValue = 1

@@ -2,4 +2,8 @@
     <string name="app_name">Smart Alarm</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="default_sound">Default</string>
+    <string name="clock_sound">Clock</string>
+    <string name="rooster_sound">Rooster</string>
 </resources>
