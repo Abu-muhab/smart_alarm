@@ -54,7 +54,7 @@ class AddAlarmFragment : Fragment() {
                 .navigate(AddAlarmFragmentDirections.actionAddAlarmFragmentToAlarmsFragment())
         }
 
-        binding.selectAlarmButton.setOnClickListener {
+        val alarmSelectListener = View.OnClickListener {
             val popupMenu = PopupMenu(requireContext(), it)
             popupMenu.menuInflater.inflate(R.menu.alarm_types_menu, popupMenu.menu)
             popupMenu.setOnMenuItemClickListener {
@@ -63,6 +63,9 @@ class AddAlarmFragment : Fragment() {
             }
             popupMenu.show()
         }
+
+        binding.selectAlarmButton.setOnClickListener(alarmSelectListener)
+        binding.alarmSoundText.setOnClickListener(alarmSelectListener)
 
         binding.previewButton.setOnClickListener {
             if (viewModel.mediaPlaying.value == true) {

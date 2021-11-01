@@ -238,7 +238,9 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
-                android:id="@+id/textView10"
+                android:clickable="true"
+                android:focusable="true"
+                android:id="@+id/alarmSoundText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
@@ -258,9 +260,9 @@
                 android:focusable="true"
                 android:src="@{viewModel.mediaPlaying?@drawable/ic_baseline_stop_24:@drawable/ic_baseline_play_arrow_24}"
                 app:imageTint="@{viewModel.mediaPlaying?@android:color/holo_red_light:@android:color/holo_green_light}"
-                app:layout_constraintBottom_toBottomOf="@+id/textView10"
+                app:layout_constraintBottom_toBottomOf="@+id/alarmSoundText"
                 app:layout_constraintEnd_toStartOf="@+id/selectAlarmButton"
-                app:layout_constraintTop_toTopOf="@+id/textView10"
+                app:layout_constraintTop_toTopOf="@+id/alarmSoundText"
                 app:layout_constraintVertical_bias="0.0"
                 tools:src="@drawable/ic_baseline_play_arrow_24"
                 tools:tint="@android:color/holo_green_light" />
@@ -288,8 +290,8 @@
                 android:textColor="@color/primaryColorDark"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="@+id/textView10"
-                app:layout_constraintTop_toBottomOf="@+id/textView10" />
+                app:layout_constraintStart_toStartOf="@+id/alarmSoundText"
+                app:layout_constraintTop_toBottomOf="@+id/alarmSoundText" />
 
             <com.google.android.material.slider.Slider
                 android:id="@+id/volumeSlider"
