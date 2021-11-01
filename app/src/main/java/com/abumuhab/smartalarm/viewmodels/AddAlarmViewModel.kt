@@ -6,7 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.abumuhab.smartalarm.R
-import com.abumuhab.smartalarm.models.AlarmSound
+import java.lang.Exception
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -22,8 +22,12 @@ class AddAlarmViewModel(private val application: Application) : ViewModel() {
     private val alarmSound = MutableLiveData<Int>()
     val alarmName = MutableLiveData<String>()
 
+    var mediaPlayer: MediaPlayer? = null
+    var mediaPlaying = MutableLiveData<Boolean>()
+
     init {
         _isAM.value = true
+        mediaPlaying.value = false
         Calendar.getInstance().apply {
             minute = this.get(Calendar.MINUTE)
             hour = this.get(Calendar.HOUR)
@@ -39,7 +43,7 @@ class AddAlarmViewModel(private val application: Application) : ViewModel() {
                 application.getString(R.string.rooster_sound) to R.raw.rooster
             )
 
-        alarmName.value = "Default"
+        alarmName.value = application.getString(R.string.default_sound)
         alarmSound.value = alarmSounds[alarmName.value]
     }
 
@@ -64,8 +68,25 @@ class AddAlarmViewModel(private val application: Application) : ViewModel() {
     }
 
     fun playSelectedAlarmSound() {
-        val mediaPlayer =
+        stopAlarmSound()
+        mediaPlayer =
             MediaPlayer.create(application.applicationContext, alarmSound.value!!)
-        mediaPlayer.start()
+        mediaPlayer!!.start()
+        mediaPlaying.value = true
+        mediaPlayer!!.setOnCompletionListener {
+            it.release()
+            mediaPlaying.value = false
+        }
+    }
+
+    fun stopAlarmSound() {
+        mediaPlayer?.apply {
+            try {
+                this.stop()
+                this.release()
+                mediaPlaying.value = false
+            } catch (e: Exception) {
+            }
+        }
     }
 }

@@ -31,7 +31,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
-                android:onClick="@{()->viewModel.playSelectedAlarmSound()}"
                 android:text="Save"
                 android:textAllCaps="false"
                 app:backgroundTint="@color/primaryColorLight"
@@ -250,6 +249,22 @@
                 app:layout_constraintStart_toStartOf="@+id/searchField"
                 app:layout_constraintTop_toBottomOf="@+id/searchField" />
 
+            <ImageView
+                android:id="@+id/previewButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="12dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:src="@{viewModel.mediaPlaying?@drawable/ic_baseline_stop_24:@drawable/ic_baseline_play_arrow_24}"
+                app:imageTint="@{viewModel.mediaPlaying?@android:color/holo_red_light:@android:color/holo_green_light}"
+                app:layout_constraintBottom_toBottomOf="@+id/textView10"
+                app:layout_constraintEnd_toStartOf="@+id/selectAlarmButton"
+                app:layout_constraintTop_toTopOf="@+id/textView10"
+                app:layout_constraintVertical_bias="0.0"
+                tools:src="@drawable/ic_baseline_play_arrow_24"
+                tools:tint="@android:color/holo_green_light" />
+
             <TextView
                 android:id="@+id/selectAlarmButton"
                 android:layout_width="wrap_content"
@@ -259,9 +274,9 @@
                 android:text="@{viewModel.alarmName}"
                 android:textColor="@color/primaryColorDark"
                 android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="@+id/textView10"
+                app:layout_constraintBottom_toBottomOf="@+id/previewButton"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/textView10"
+                app:layout_constraintTop_toTopOf="@+id/previewButton"
                 tools:text="Default" />
 
             <TextView

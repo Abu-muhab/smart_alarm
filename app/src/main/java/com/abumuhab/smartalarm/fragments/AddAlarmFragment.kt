@@ -60,6 +60,14 @@ class AddAlarmFragment : Fragment() {
             popupMenu.show()
         }
 
+        binding.previewButton.setOnClickListener {
+            if (viewModel.mediaPlaying.value == true) {
+                viewModel.stopAlarmSound()
+            } else {
+                viewModel.playSelectedAlarmSound()
+            }
+        }
+
         binding.hourPicker.minValue = 1
         binding.hourPicker.maxValue = 12
         binding.hourPicker.value = viewModel.hour.toInt()
