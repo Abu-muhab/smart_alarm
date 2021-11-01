@@ -6,6 +6,8 @@
 
     <data>
 
+        <import type="android.view.View" />
+
         <variable
             name="viewModel"
             type="com.abumuhab.smartalarm.viewmodels.AlarmsViewModel" />
@@ -62,6 +64,19 @@
                 android:textStyle="bold" />
         </com.abumuhab.smartalarm.FolderCutLinearLayout>
 
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@color/lightGrey"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:src="@drawable/ic_undraw_time_management_re_tk5w"
+            android:visibility="@{viewModel.alarms.size()==0?View.VISIBLE:View.GONE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/alarmHeader"
+            tools:visibility="gone" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/alarmsRecyclerView"
             android:layout_width="match_parent"
@@ -69,6 +84,7 @@
             android:background="@color/lightGrey"
             android:paddingStart="20dp"
             android:paddingEnd="20dp"
+            android:visibility="@{viewModel.alarms.size()>0?View.VISIBLE:View.GONE}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/alarmHeader" />
