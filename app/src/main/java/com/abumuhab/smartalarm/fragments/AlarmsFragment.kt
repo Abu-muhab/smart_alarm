@@ -40,7 +40,7 @@ class AlarmsFragment : Fragment() {
         binding.viewModel = viewModel
 
 
-        val adapter = AlarmAdapter()
+        val adapter = AlarmAdapter(alarmDao)
 
         binding.alarmsRecyclerView.adapter = adapter
 

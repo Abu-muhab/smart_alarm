@@ -144,7 +144,8 @@ class AddAlarmViewModel(private val application: Application, private val alarmD
                 days,
                 minute.toInt(),
                 hour.toInt(),
-                isAM.value!!
+                isAM.value!!,
+                false
             )
             alarmDao.insert(alarm)
             return true

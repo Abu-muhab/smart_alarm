@@ -21,7 +21,8 @@ data class Alarm(
     val repeatDays: List<String>,
     val min: Int,
     val hour: Int,
-    val isAM: Boolean
+    val isAM: Boolean,
+    val disabled:Boolean
 ) {
     fun formattedTime(): String {
         return hour.toString().padStart(2, '0') + ":" + min.toString().padStart(2, '0')
