@@ -85,6 +85,11 @@ class AddAlarmFragment : Fragment() {
             }
         }
 
+        binding.volumeSlider.value = 0.5F
+        binding.volumeSlider.addOnChangeListener { _, value, _ ->
+            viewModel.changeAlarmVolume(value)
+        }
+
         binding.hourPicker.minValue = 1
         binding.hourPicker.maxValue = 12
         binding.hourPicker.value = viewModel.hour.toInt()

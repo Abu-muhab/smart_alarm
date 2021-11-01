@@ -24,12 +24,14 @@ class AddAlarmViewModel(private val application: Application) : ViewModel() {
 
     private val alarmSound = MutableLiveData<Int>()
     val alarmName = MutableLiveData<String>()
+    var alarmVolume = 0.5F
 
     var mediaPlayer: MediaPlayer? = null
     var mediaPlaying = MutableLiveData<Boolean>()
 
     var addVibration = MutableLiveData<Boolean>()
     private var vibrator: Vibrator
+
 
     init {
         _isAM.value = true
@@ -95,13 +97,22 @@ class AddAlarmViewModel(private val application: Application) : ViewModel() {
         mediaPlayer =
             MediaPlayer.create(application.applicationContext, alarmSound.value!!)
         mediaPlayer?.apply {
-            this.start()
+            setVolume(alarmVolume, alarmVolume)
+            start()
             mediaPlaying.value = true
-            this.setOnCompletionListener {
+            setOnCompletionListener {
                 it.release()
                 mediaPlaying.value = false
                 vibrator.cancel()
             }
+        }
+    }
+
+    fun changeAlarmVolume(volume: Float) {
+        alarmVolume = volume
+        try {
+            mediaPlayer?.setVolume(alarmVolume, alarmVolume)
+        } catch (e: Exception) {
         }
     }
 
