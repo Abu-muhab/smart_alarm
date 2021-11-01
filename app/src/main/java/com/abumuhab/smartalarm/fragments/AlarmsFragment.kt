@@ -39,7 +39,6 @@ class AlarmsFragment : Fragment() {
         viewModel = ViewModelProvider(this, viewModelFactory).get(AlarmsViewModel::class.java)
         binding.viewModel = viewModel
 
-
         val adapter = AlarmAdapter(alarmDao)
 
         binding.alarmsRecyclerView.adapter = adapter

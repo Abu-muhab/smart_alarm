@@ -230,10 +230,10 @@
                     android:id="@+id/alarmTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:maxLines="1"
+                    android:background="@android:color/transparent"
                     android:imeOptions="flagNoEnterAction"
                     android:inputType="text"
-                    android:background="@android:color/transparent"
+                    android:maxLines="1"
                     android:paddingStart="0dp"
                     android:text="New Alarm"
                     android:textColor="@color/primaryColorDark"
@@ -241,12 +241,12 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
-                android:clickable="true"
-                android:focusable="true"
                 android:id="@+id/alarmSoundText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
+                android:clickable="true"
+                android:focusable="true"
                 android:text="Alarm Sound"
                 android:textColor="@color/primaryColorDark"
                 android:textSize="16sp"
@@ -321,7 +321,6 @@
 
             <com.google.android.material.switchmaterial.SwitchMaterial
                 android:id="@+id/vibrationSwitch"
-                app:trackTint="@{viewModel.addVibration?@color/primaryColorLight:@android:color/darker_gray}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:theme="@style/Theme.SmartAlarm"
@@ -329,6 +328,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/textView14"
                 app:thumbTint="@color/white"
+                app:trackTint="@{viewModel.addVibration?@color/primaryColorLight:@android:color/darker_gray}"
                 tools:trackTint="@android:color/darker_gray" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

@@ -14,15 +14,15 @@ import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 @TypeConverters(StringArrayConverter::class)
 data class Alarm(
     @PrimaryKey(autoGenerate = true) var dbId: Long = 0L,
-    val name: String,
-    val sound: Int,
-    val vibration: Boolean,
-    val volume: Float,
-    val repeatDays: List<String>,
-    val min: Int,
-    val hour: Int,
-    val isAM: Boolean,
-    val disabled:Boolean
+    var name: String,
+    var sound: Int,
+    var vibration: Boolean,
+    var volume: Float,
+    var repeatDays: List<String>,
+    var min: Int,
+    var hour: Int,
+    var isAM: Boolean,
+    var disabled: Boolean
 ) {
     fun formattedTime(): String {
         return hour.toString().padStart(2, '0') + ":" + min.toString().padStart(2, '0')
