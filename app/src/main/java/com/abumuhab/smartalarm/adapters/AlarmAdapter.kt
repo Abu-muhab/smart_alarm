@@ -8,16 +8,17 @@ import androidx.recyclerview.widget.RecyclerView
 import com.abumuhab.smartalarm.databinding.AlarmListItemBinding
 import com.abumuhab.smartalarm.models.Alarm
 
-class AlarmAdapter: ListAdapter<Alarm, AlarmAdapter.ViewHolder>(AlarmDiffCallback()) {
-    class ViewHolder(private val binding: AlarmListItemBinding): RecyclerView.ViewHolder(binding.root){
-        fun bind(alarm: Alarm){
-
+class AlarmAdapter : ListAdapter<Alarm, AlarmAdapter.ViewHolder>(AlarmDiffCallback()) {
+    class ViewHolder(private val binding: AlarmListItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(alarm: Alarm) {
+            binding.alarm = alarm
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
-        val binding = AlarmListItemBinding.inflate(layoutInflater,parent,false)
+        val binding = AlarmListItemBinding.inflate(layoutInflater, parent, false)
         return ViewHolder(binding)
     }
 
@@ -27,9 +28,9 @@ class AlarmAdapter: ListAdapter<Alarm, AlarmAdapter.ViewHolder>(AlarmDiffCallbac
     }
 }
 
-class AlarmDiffCallback: DiffUtil.ItemCallback<Alarm>(){
+class AlarmDiffCallback : DiffUtil.ItemCallback<Alarm>() {
     override fun areItemsTheSame(oldItem: Alarm, newItem: Alarm): Boolean {
-        return oldItem.id==newItem.id
+        return oldItem.dbId == newItem.dbId
     }
 
     override fun areContentsTheSame(oldItem: Alarm, newItem: Alarm): Boolean {

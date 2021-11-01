@@ -3,6 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+        <variable
+            name="alarm"
+            type="com.abumuhab.smartalarm.models.Alarm" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -25,20 +32,22 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingStart="10dp"
-            android:text="Mon, Tues, Sat"
+            android:text="@{alarm.formattedRepeatDays()}"
             app:layout_constraintStart_toEndOf="@+id/materialCardView"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Mon, Tues, Sat" />
 
         <TextView
             android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:text="04:00"
+            android:text="@{alarm.formattedTime()}"
             android:textColor="@color/primaryColorDark"
             android:textSize="50sp"
             app:layout_constraintStart_toStartOf="@+id/textView"
-            app:layout_constraintTop_toBottomOf="@+id/textView" />
+            app:layout_constraintTop_toBottomOf="@+id/textView"
+            tools:text="04:00" />
 
         <ImageView
             android:layout_width="30dp"
@@ -54,20 +63,22 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
             android:layout_marginBottom="5dp"
-            android:text="AM"
+            android:text="@{alarm.isAM?`AM`:`PM`}"
             android:textColor="@color/primaryColorDark"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="@+id/textView3"
-            app:layout_constraintStart_toEndOf="@+id/textView3" />
+            app:layout_constraintStart_toEndOf="@+id/textView3"
+            tools:text="AM" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Wake up"
+            android:text="@{alarm.name}"
             android:textColor="@color/primaryColorDark"
             android:textSize="15sp"
             app:layout_constraintStart_toStartOf="@+id/textView3"
-            app:layout_constraintTop_toBottomOf="@+id/textView3" />
+            app:layout_constraintTop_toBottomOf="@+id/textView3"
+            tools:text="Wake up" />
 
         <com.google.android.material.switchmaterial.SwitchMaterial
             android:layout_width="wrap_content"

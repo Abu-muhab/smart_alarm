@@ -22,7 +22,6 @@
         <action
             android:id="@+id/action_addAlarmFragment_to_alarmsFragment"
             app:destination="@id/alarmsFragment"
-            app:popUpTo="@id/alarmsFragment"
-            app:popUpToInclusive="true" />
+            app:popUpTo="@id/alarmsFragment" />
     </fragment>
 </navigation>

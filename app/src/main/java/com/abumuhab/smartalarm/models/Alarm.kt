@@ -1,3 +1,54 @@
 package com.abumuhab.smartalarm.models
 
-data class Alarm(val name: String,val id:String)
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import androidx.room.TypeConverter
+import androidx.room.TypeConverters
+import com.squareup.moshi.JsonAdapter
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.adapter
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+
+
+@Entity(tableName = "alarms")
+@TypeConverters(StringArrayConverter::class)
+data class Alarm(
+    @PrimaryKey(autoGenerate = true) var dbId: Long = 0L,
+    val name: String,
+    val sound: Int,
+    val vibration: Boolean,
+    val volume: Float,
+    val repeatDays: List<String>,
+    val min: Int,
+    val hour: Int,
+    val isAM: Boolean
+) {
+    fun formattedTime(): String {
+        return hour.toString().padStart(2, '0') + ":" + min.toString().padStart(2, '0')
+    }
+
+    fun formattedRepeatDays(): String {
+        if (repeatDays.isEmpty()) {
+            return "No repeats"
+        }
+        return repeatDays.joinToString(", ")
+    }
+}
+
+val moshi: Moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
+
+object StringArrayConverter {
+    @ExperimentalStdlibApi
+    @TypeConverter
+    fun fromString(daysString: String): List<String> {
+        val jsonAdapter: JsonAdapter<List<String>> = moshi.adapter()
+        return requireNotNull(jsonAdapter.fromJson(daysString))
+    }
+
+    @ExperimentalStdlibApi
+    @TypeConverter
+    fun toString(list: List<String>): String {
+        val jsonAdapter: JsonAdapter<List<String>> = moshi.adapter()
+        return jsonAdapter.toJson(list)
+    }
+}

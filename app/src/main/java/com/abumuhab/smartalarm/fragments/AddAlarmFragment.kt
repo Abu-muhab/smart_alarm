@@ -2,31 +2,29 @@ package com.abumuhab.smartalarm.fragments
 
 import android.app.Application
 import android.content.Context
-import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.VibrationEffect
 import android.os.Vibrator
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.CompoundButton
 import android.widget.LinearLayout
 import android.widget.PopupMenu
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.children
-import androidx.core.view.get
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import com.abumuhab.smartalarm.R
+import com.abumuhab.smartalarm.database.AlarmDatabase
 import com.abumuhab.smartalarm.databinding.FragmentAddAlarmBinding
 import com.abumuhab.smartalarm.databinding.WeekdayCardBinding
-import com.abumuhab.smartalarm.models.AlarmSound
 import com.abumuhab.smartalarm.util.hideSoftKeyboard
+import com.abumuhab.smartalarm.util.showBasicMessageDialog
 import com.abumuhab.smartalarm.viewmodels.AddAlarmViewModel
 import com.abumuhab.smartalarm.viewmodels.AddAlarmViewModelFactory
+import kotlinx.coroutines.launch
 
 class AddAlarmFragment : Fragment() {
     private lateinit var viewModel: AddAlarmViewModel
@@ -41,7 +39,8 @@ class AddAlarmFragment : Fragment() {
         )
 
         val application: Application = requireNotNull(this.activity).application
-        val viewModelFactory = AddAlarmViewModelFactory(application)
+        val alarmDao = AlarmDatabase.getInstance(application).alarmDao
+        val viewModelFactory = AddAlarmViewModelFactory(application, alarmDao)
         viewModel = ViewModelProvider(this, viewModelFactory).get(AddAlarmViewModel::class.java)
         binding.viewModel = viewModel
 
@@ -49,9 +48,19 @@ class AddAlarmFragment : Fragment() {
             hideSoftKeyboard(requireContext(), it)
         }
 
+        binding.saveAlarmButton.setOnClickListener {
+            lifecycleScope.launch {
+                val saved = viewModel.saveAlarm(binding.alarmTitle.text.toString())
+                if (!saved) {
+                    showBasicMessageDialog("Error saving alarm", requireActivity())
+                } else {
+                    it.findNavController().navigateUp()
+                }
+            }
+        }
+
         binding.cancelButton.setOnClickListener {
-            it.findNavController()
-                .navigate(AddAlarmFragmentDirections.actionAddAlarmFragmentToAlarmsFragment())
+            it.findNavController().navigateUp()
         }
 
         val alarmSelectListener = View.OnClickListener {
@@ -100,6 +109,9 @@ class AddAlarmFragment : Fragment() {
         binding.hourPicker.displayedValues = (hourRage.map {
             it.toString().padStart(2, '0')
         }).toTypedArray()
+        binding.hourPicker.setOnValueChangedListener { _, _, i ->
+            viewModel.hour = i
+        }
 
         binding.minutePicker.minValue = 0
         binding.minutePicker.maxValue = 59
@@ -108,6 +120,9 @@ class AddAlarmFragment : Fragment() {
         binding.minutePicker.displayedValues = (minRange.map {
             it.toString().padStart(2, '0')
         }).toTypedArray()
+        binding.minutePicker.setOnValueChangedListener { _, _, i ->
+            viewModel.minute = i
+        }
 
 
         val days = arrayListOf("Mon", "Tues", "Wed", "Thurs", "Fri", "Sat", "Sun")

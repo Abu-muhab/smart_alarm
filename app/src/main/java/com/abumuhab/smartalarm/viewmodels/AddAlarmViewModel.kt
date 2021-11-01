@@ -8,12 +8,17 @@ import android.os.Vibrator
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.abumuhab.smartalarm.R
+import com.abumuhab.smartalarm.database.AlarmDao
+import com.abumuhab.smartalarm.models.Alarm
+import kotlinx.coroutines.launch
 import java.lang.Exception
 import java.util.*
 import kotlin.collections.ArrayList
 
-class AddAlarmViewModel(private val application: Application) : ViewModel() {
+class AddAlarmViewModel(private val application: Application, private val alarmDao: AlarmDao) :
+    ViewModel() {
     private val _isAM = MutableLiveData<Boolean>()
     val isAM: LiveData<Boolean>
         get() = _isAM
@@ -125,6 +130,26 @@ class AddAlarmViewModel(private val application: Application) : ViewModel() {
                 mediaPlaying.value = false
             } catch (e: Exception) {
             }
+        }
+    }
+
+    suspend fun saveAlarm(name: String): Boolean {
+        try {
+            val alarm = Alarm(
+                0L,
+                name,
+                alarmSound.value!!,
+                addVibration.value!!,
+                alarmVolume,
+                days,
+                minute.toInt(),
+                hour.toInt(),
+                isAM.value!!
+            )
+            alarmDao.insert(alarm)
+            return true
+        } catch (e: Exception) {
+            return false
         }
     }
 }
