@@ -1,7 +1,10 @@
 package com.abumuhab.smartalarm.viewmodels
 
 import android.app.Application
+import android.content.Context
 import android.media.MediaPlayer
+import android.os.VibrationEffect
+import android.os.Vibrator
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -25,9 +28,14 @@ class AddAlarmViewModel(private val application: Application) : ViewModel() {
     var mediaPlayer: MediaPlayer? = null
     var mediaPlaying = MutableLiveData<Boolean>()
 
+    var addVibration = MutableLiveData<Boolean>()
+    private var vibrator: Vibrator
+
     init {
         _isAM.value = true
         mediaPlaying.value = false
+        addVibration.value = false
+
         Calendar.getInstance().apply {
             minute = this.get(Calendar.MINUTE)
             hour = this.get(Calendar.HOUR)
@@ -45,6 +53,8 @@ class AddAlarmViewModel(private val application: Application) : ViewModel() {
 
         alarmName.value = application.getString(R.string.default_sound)
         alarmSound.value = alarmSounds[alarmName.value]
+
+        vibrator = application.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
     }
 
     fun setAM(value: Boolean) {
@@ -69,19 +79,36 @@ class AddAlarmViewModel(private val application: Application) : ViewModel() {
 
     fun playSelectedAlarmSound() {
         stopAlarmSound()
+        if (addVibration.value == true) {
+            vibrator.vibrate(
+                VibrationEffect.createWaveform(
+                    longArrayOf(600, 400, 600, 400),
+                    intArrayOf(
+                        VibrationEffect.DEFAULT_AMPLITUDE,
+                        0,
+                        VibrationEffect.DEFAULT_AMPLITUDE,
+                        0
+                    ), 0
+                )
+            )
+        }
         mediaPlayer =
             MediaPlayer.create(application.applicationContext, alarmSound.value!!)
-        mediaPlayer!!.start()
-        mediaPlaying.value = true
-        mediaPlayer!!.setOnCompletionListener {
-            it.release()
-            mediaPlaying.value = false
+        mediaPlayer?.apply {
+            this.start()
+            mediaPlaying.value = true
+            this.setOnCompletionListener {
+                it.release()
+                mediaPlaying.value = false
+                vibrator.cancel()
+            }
         }
     }
 
     fun stopAlarmSound() {
         mediaPlayer?.apply {
             try {
+                vibrator.cancel()
                 this.stop()
                 this.release()
                 mediaPlaying.value = false

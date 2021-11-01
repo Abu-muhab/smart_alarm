@@ -316,6 +316,7 @@
 
             <com.google.android.material.switchmaterial.SwitchMaterial
                 android:id="@+id/vibrationSwitch"
+                app:trackTint="@{viewModel.addVibration?@color/primaryColorLight:@android:color/darker_gray}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:theme="@style/Theme.SmartAlarm"
@@ -323,7 +324,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/textView14"
                 app:thumbTint="@color/white"
-                app:trackTint="@color/primaryColorLight" />
+                tools:trackTint="@android:color/darker_gray" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 </layout>
