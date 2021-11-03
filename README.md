@@ -8,6 +8,7 @@ The Alarm app let's you shedule one time or repititive alarms with custom titile
 * MediaBrowserCompat
 * MediaBrowserServiceCompat 
 * AlarmManager
+* MediaPlayer
 
 <h2 align="left">Screenshots</h2>
 
