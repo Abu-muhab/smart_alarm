@@ -1,18 +1,19 @@
 package com.abumuhab.smartalarm.viewmodels
 
-import android.app.Application
+import android.app.*
 import android.content.Context
+import android.content.Intent
 import android.media.MediaPlayer
 import android.os.VibrationEffect
 import android.os.Vibrator
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import com.abumuhab.smartalarm.MainActivity
 import com.abumuhab.smartalarm.R
 import com.abumuhab.smartalarm.database.AlarmDao
 import com.abumuhab.smartalarm.models.Alarm
-import kotlinx.coroutines.launch
+import com.abumuhab.smartalarm.receivers.AlarmReceiver
 import java.lang.Exception
 import java.util.*
 import kotlin.collections.ArrayList
@@ -134,6 +135,27 @@ class AddAlarmViewModel(private val application: Application, private val alarmD
     }
 
     suspend fun saveAlarm(name: String): Boolean {
+        val alarmManager = application.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        val calendar: Calendar = Calendar.getInstance().apply {
+            set(Calendar.HOUR, if (hour.toInt() == 12) 0 else hour.toInt())
+            set(Calendar.MINUTE, minute.toInt())
+            set(Calendar.MILLISECOND, 0)
+            set(Calendar.AM_PM, if (isAM.value!!) Calendar.AM else Calendar.PM)
+        }
+
+        val alarmIntent = Intent(application, AlarmReceiver::class.java).let {
+            it.action = "com.abumuhab.alarm.action.START_ALARM"
+            PendingIntent.getBroadcast(application, 0, it, 0)
+        }
+
+        val intent2 = Intent(application, MainActivity::class.java).let {
+            PendingIntent.getActivity(application, 1, it, 0)
+        }
+
+        alarmManager.setAlarmClock(
+            AlarmManager.AlarmClockInfo(calendar.timeInMillis, intent2),
+            alarmIntent
+        )
         try {
             val alarm = Alarm(
                 0L,
