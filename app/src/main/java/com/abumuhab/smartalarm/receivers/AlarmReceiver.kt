@@ -9,6 +9,7 @@ import android.content.Intent
 import android.os.Build
 import android.support.v4.media.MediaBrowserCompat
 import android.support.v4.media.session.MediaControllerCompat
+import android.util.Log
 import android.view.KeyEvent
 import androidx.core.content.ContextCompat
 import com.abumuhab.smartalarm.services.MediaPlaybackService
@@ -20,12 +21,15 @@ class AlarmReceiver : BroadcastReceiver() {
 
         if (intent.action == "com.abumuhab.alarm.action.START_ALARM") {
             createNotificationChannel(context.applicationContext)
+            Log.i("UUID_ALARM", intent.getStringExtra("id").toString())
             connectionCallBack = object : MediaBrowserCompat.ConnectionCallback() {
                 override fun onConnected() {
                     mediaBrowser!!.sessionToken.also { token ->
                         val mediaController =
                             MediaControllerCompat(context.applicationContext, token)
-                        mediaController.transportControls.play()
+                        mediaController.transportControls.playFromMediaId(
+                            intent.getStringExtra("id").toString(), null
+                        )
                     }
                 }
             }

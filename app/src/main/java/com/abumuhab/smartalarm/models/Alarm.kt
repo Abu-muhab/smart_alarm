@@ -13,7 +13,7 @@ import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 @Entity(tableName = "alarms")
 @TypeConverters(StringArrayConverter::class)
 data class Alarm(
-    @PrimaryKey(autoGenerate = true) var dbId: Long = 0L,
+    @PrimaryKey(autoGenerate = false) var dbId: String = "",
     var name: String,
     var sound: Int,
     var vibration: Boolean,

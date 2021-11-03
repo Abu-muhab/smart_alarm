@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import com.abumuhab.smartalarm.models.Alarm
 
 
-@Database(entities = [Alarm::class],version = 4,exportSchema = true)
+@Database(entities = [Alarm::class],version = 5,exportSchema = true)
 abstract class AlarmDatabase : RoomDatabase() {
     abstract val alarmDao:AlarmDao
     companion object {
