@@ -7,6 +7,7 @@ The Alarm app let's you shedule one time or repititive alarms with custom titile
 * Jetpack Navigation
 * MediaBrowserCompat
 * MediaBrowserServiceCompat 
+* AlarmManager
 
 <h2 align="left">Screenshots</h2>
 
